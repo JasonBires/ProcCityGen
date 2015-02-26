@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 
+/*
+ * Class for holding turtle drawer state for use with stack
+ * Composed of an angle and a position, getters and setters for both
+ */
 public class TurtleState {
 	private int angle;
 	private Vector3 position;
@@ -26,6 +30,9 @@ public class TurtleState {
 	}
 }
 
+/*
+ * The main L system creator class
+ */
 public class l_system : MonoBehaviour {
 	public string axiom;
 	public string[] rules;
@@ -43,22 +50,20 @@ public class l_system : MonoBehaviour {
 		}
 		axiomInterpreter (axiom);
 	}
+
 	/*
-	// Update is called once per frame
-	void Update () {
-		
-	}
-	*/
+	 * Generate the final string from the rules and starting axiom we've been given
+	 */
 	string applyRules(string axi, string[] rules) {
 		char[] ax = axi.ToCharArray ();
 		string[] results = new string[ax.Length];
 		for (int i = 0; i < rules.Length; i++) {
 			string[] arrResults = rules[i].Split(':');
-			string transformer = arrResults[1];
-			string toTransform = arrResults[0];
+			string transformer = arrResults[1]; //The rules for the given symbol
+			string toTransform = arrResults[0]; //The given symbol
 			for (int j = 0; j < ax.Length; j++) {
 				if (ax[j].ToString().Equals(toTransform)) {
-					results[j] = transformer;
+					results[j] = transformer;   //Apply the rules to the symbol
 				}
 			}
 		}
